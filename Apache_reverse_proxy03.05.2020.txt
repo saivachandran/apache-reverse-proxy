@@ -1,0 +1,68 @@
+apache reverse proxy configuration
+
+
+install apache on reverse proxy server
+
+# yum update -y
+
+# yum install httpd -y
+
+# systemctl start httpd
+
+# systemctl enable httpd
+
+# cd /var/www/html/
+
+# echo "reverse proxy server" > index.html
+
+
+
+install apache on webserver
+
+# yum update -y
+
+# yum install httpd -y
+
+# systemctl start httpd
+
+# systemctl enable httpd
+
+# cd /var/www/html/
+
+# echo "webserver" > index.html
+
+
+
+
+
+goto reverse proxy server
+
+# cd /etc/httpd/conf.d
+
+# vim reverse.conf
+
+
+#Apache reverse proxy
+
+<IfModule mod_proxy.c>
+          ProxyRequests off
+          <proxy *>
+                  Require all granted
+
+          </proxy>
+          ProxyPass / http://172.31.13.163  
+          ProxyPassReverse  / 172.31.13.163
+
+</IfModule>
+
+
+esc:
+wq!
+
+allow 80 port in firewall
+
+
+access browser  http://reverse proxy server ip
+
+
+
